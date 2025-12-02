@@ -24,13 +24,15 @@ func Part01(rs iter.Seq[ranges.Range]) int {
 	sum := 0
 	for r := range rs {
 		sum += iters.Sum(r.InvalidIds())
-		// fmt.Println(r, slices.Collect(r.InvalidIds()))
 	}
 	return sum
 }
 func Part02(rs iter.Seq[ranges.Range]) int {
-	panic("TODO")
-	// return -1
+	sum := 0
+	for r := range rs {
+		sum += iters.Sum(r.InvalidIds2())
+	}
+	return sum
 }
 
 func Parse(s string) ranges.Range {
