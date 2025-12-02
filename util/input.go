@@ -1,6 +1,7 @@
 package util
 
 import (
+	"aoc2025/util/strpipe"
 	"fmt"
 	"io"
 	"iter"
@@ -8,8 +9,10 @@ import (
 	"strings"
 )
 
+type Parser[T any] func(string) T
+
 // parser is a function that takes a line *WITH NEWLINE* and turns it into T
-func LoadLines[T any](filename string, parser func(string) T) iter.Seq[T] {
+func LoadLines[T any](filename string, parser Parser[T]) iter.Seq[T] {
 	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
 	if err != nil {
 		panic(fmt.Errorf("loading lines: getting file: %w", err))
@@ -24,6 +27,27 @@ func LoadLines[T any](filename string, parser func(string) T) iter.Seq[T] {
 	return func(yield func(T) bool) {
 		for line := range lines {
 			if !yield(parser(line)) {
+				return
+			}
+		}
+	}
+}
+
+func LoadLineOfElements[T any](filename string, parser Parser[T]) iter.Seq[T] {
+	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
+	if err != nil {
+		panic(fmt.Errorf("loading lines: getting file: %w", err))
+	}
+	defer file.Close()
+	bts, err := io.ReadAll(file)
+	if err != nil {
+		panic(fmt.Errorf("loading lines: reading file: %w", err))
+	}
+	sp := strpipe.New(string(bts))
+
+	return func(yield func(T) bool) {
+		for element := range sp.Trim().SplitCommas() {
+			if !yield(parser(element.String())) {
 				return
 			}
 		}
