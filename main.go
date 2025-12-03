@@ -3,6 +3,7 @@ package main
 import (
 	"aoc2025/day01"
 	"aoc2025/day02"
+	"aoc2025/day03"
 	"path"
 
 	"github.com/jessevdk/go-flags"
@@ -22,6 +23,7 @@ var Days = map[int]struct {
 }{
 	1: {a: day01.Day01, f: "day01"},
 	2: {a: day02.Day02, f: "day02"},
+	3: {a: day03.Day03, f: "day03"},
 }
 
 func main() {
@@ -34,9 +36,9 @@ func main() {
 	d := Days[opts.Day]
 	filename := d.f
 	if opts.Sample {
-		filename = path.Join("sample", filename)
+		filename = path.Join("sample", filename+".txt")
 	} else {
-		filename = path.Join("input", filename)
+		filename = path.Join("input", filename+".txt")
 	}
 
 	d.a(filename, opts.Part)
