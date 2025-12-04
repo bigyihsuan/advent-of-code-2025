@@ -37,3 +37,15 @@ func (g Grid) String() string {
 	}
 	return sb.String()
 }
+
+func (g Grid) Clone() Grid {
+	var n Grid
+	for _, row := range g {
+		r := []rune{}
+		for _, e := range row {
+			r = append(r, e)
+		}
+		n = append(n, r)
+	}
+	return n
+}
