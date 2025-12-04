@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/main.go",
-            "args": [ "-d", "3", "-p", "2", "-s" ]
+            "args": [ "-d", "4", "-p", "1", "-s" ]
         }
     ]
 }

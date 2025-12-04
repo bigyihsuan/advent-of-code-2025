@@ -1,6 +1,7 @@
 package util
 
 import (
+	"aoc2025/util/grid"
 	"aoc2025/util/strpipe"
 	"fmt"
 	"io"
@@ -36,12 +37,12 @@ func LoadLines[T any](filename string, parser Parser[T]) iter.Seq[T] {
 func LoadLineOfElements[T any](filename string, parser Parser[T]) iter.Seq[T] {
 	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
 	if err != nil {
-		panic(fmt.Errorf("loading lines: getting file: %w", err))
+		panic(fmt.Errorf("loading line: getting file: %w", err))
 	}
 	defer file.Close()
 	bts, err := io.ReadAll(file)
 	if err != nil {
-		panic(fmt.Errorf("loading lines: reading file: %w", err))
+		panic(fmt.Errorf("loading line: reading file: %w", err))
 	}
 	sp := strpipe.New(string(bts))
 
@@ -52,4 +53,18 @@ func LoadLineOfElements[T any](filename string, parser Parser[T]) iter.Seq[T] {
 			}
 		}
 	}
+}
+
+func LoadStringGrid(filename string) grid.Grid {
+	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
+	if err != nil {
+		panic(fmt.Errorf("loading grid: getting file: %w", err))
+	}
+	defer file.Close()
+	bts, err := io.ReadAll(file)
+	if err != nil {
+		panic(fmt.Errorf("loading grid: reading file: %w", err))
+	}
+
+	return grid.NewFromStringGrid(string(bts))
 }

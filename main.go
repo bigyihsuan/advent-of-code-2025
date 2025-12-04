@@ -4,6 +4,7 @@ import (
 	"aoc2025/day01"
 	"aoc2025/day02"
 	"aoc2025/day03"
+	"aoc2025/day04"
 	"path"
 
 	"github.com/jessevdk/go-flags"
@@ -24,6 +25,7 @@ var Days = map[int]struct {
 	1: {a: day01.Day01, f: "day01"},
 	2: {a: day02.Day02, f: "day02"},
 	3: {a: day03.Day03, f: "day03"},
+	4: {a: day04.Day04, f: "day04"},
 }
 
 func main() {

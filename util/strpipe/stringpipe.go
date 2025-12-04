@@ -67,6 +67,10 @@ func (sp StrPipe) ToInts(digits int) iter.Seq[int] {
 	}
 }
 
+func (sp StrPipe) Lines() iter.Seq[string] {
+	return strings.Lines(sp.String())
+}
+
 // StrPipes
 
 func (it StrPipeIter) CollectPipes() []StrPipe {
