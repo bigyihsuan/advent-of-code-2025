@@ -9,7 +9,7 @@ import (
 	"slices"
 )
 
-func Day03(filename string, part int) {
+func Day(filename string, part int) {
 	banks := util.LoadLines(filename, Parse)
 	switch part {
 	case 1:

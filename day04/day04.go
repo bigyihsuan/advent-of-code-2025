@@ -12,7 +12,7 @@ const (
 	EMPTY = '.'
 )
 
-func Day04(filename string, part int) {
+func Day(filename string, part int) {
 	sss := util.LoadStringGrid(filename)
 	switch part {
 	case 1:

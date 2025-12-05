@@ -5,15 +5,17 @@ import (
 	"aoc2025/day02"
 	"aoc2025/day03"
 	"aoc2025/day04"
+	"aoc2025/day05"
 	"path"
 
 	"github.com/jessevdk/go-flags"
 )
 
 type Options struct {
-	Day    int  `short:"d" long:"day"`
-	Part   int  `short:"p" long:"part" default:"1"`
-	Sample bool `short:"s" long:"sample"`
+	Day      int    `short:"d" long:"day"`
+	Part     int    `short:"p" long:"part" default:"1"`
+	Sample   bool   `short:"s" long:"sample"`
+	Filename string `short:"f" long:"filename" default:""`
 }
 
 type DayFunc = func(filename string, part int)
@@ -22,10 +24,11 @@ var Days = map[int]struct {
 	a DayFunc
 	f string
 }{
-	1: {a: day01.Day01, f: "day01"},
-	2: {a: day02.Day02, f: "day02"},
-	3: {a: day03.Day03, f: "day03"},
-	4: {a: day04.Day04, f: "day04"},
+	1: {a: day01.Day, f: "day01"},
+	2: {a: day02.Day, f: "day02"},
+	3: {a: day03.Day, f: "day03"},
+	4: {a: day04.Day, f: "day04"},
+	5: {a: day05.Day, f: "day05"},
 }
 
 func main() {
@@ -39,6 +42,8 @@ func main() {
 	filename := d.f
 	if opts.Sample {
 		filename = path.Join("sample", filename+".txt")
+	} else if opts.Filename != "" {
+		filename = opts.Filename
 	} else {
 		filename = path.Join("input", filename+".txt")
 	}

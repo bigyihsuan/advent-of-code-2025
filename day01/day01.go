@@ -7,7 +7,7 @@ import (
 	"iter"
 )
 
-func Day01(filename string, part int) {
+func Day(filename string, part int) {
 	rs := util.LoadLines(filename, rt.Parse)
 	switch part {
 	case 1:

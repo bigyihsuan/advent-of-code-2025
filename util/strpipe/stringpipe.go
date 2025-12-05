@@ -35,11 +35,15 @@ func (sp StrPipe) Trim() StrPipe {
 
 // collections
 
-func (sp StrPipe) SplitCommas() iter.Seq[StrPipe] {
-	return iters.Map(slices.Values(strings.Split(string(sp), ",")), New)
+func (sp StrPipe) SplitCommas() StrPipeIter {
+	return StrPipeIter(iters.Map(slices.Values(strings.Split(string(sp), ",")), New))
 }
 
-func (sp StrPipe) Chunk(n int) iter.Seq[StrPipe] {
+func (sp StrPipe) SplitDash() StrPipeIter {
+	return StrPipeIter(iters.Map(slices.Values(strings.Split(string(sp), "-")), New))
+}
+
+func (sp StrPipe) Chunk(n int) StrPipeIter {
 	return func(yield func(StrPipe) bool) {
 		chunks := iters.Map(slices.Chunk(sp.Runes(), n), NewFromRunes)
 		for chunk := range chunks {
@@ -52,7 +56,7 @@ func (sp StrPipe) Chunk(n int) iter.Seq[StrPipe] {
 
 func (sp StrPipe) ToInts(digits int) iter.Seq[int] {
 	return func(yield func(int) bool) {
-		chunks := iters.Map(sp.Chunk(digits), func(s StrPipe) int {
+		chunks := iters.Map(iter.Seq[StrPipe](sp.Chunk(digits)), func(s StrPipe) int {
 			i, err := strconv.Atoi(s.String())
 			if err != nil {
 				panic(err)

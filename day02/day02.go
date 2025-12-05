@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func Day02(filename string, part int) {
+func Day(filename string, part int) {
 	rs := util.LoadLineOfElements(filename, Parse)
 	switch part {
 	case 1:
