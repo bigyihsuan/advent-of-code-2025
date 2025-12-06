@@ -68,3 +68,16 @@ func LoadStringGrid(filename string) grid.Grid {
 
 	return grid.NewFromStringGrid(string(bts))
 }
+
+func LoadFile(filename string) string {
+	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
+	if err != nil {
+		panic(fmt.Errorf("loading lines: getting file: %w", err))
+	}
+	defer file.Close()
+	bts, err := io.ReadAll(file)
+	if err != nil {
+		panic(fmt.Errorf("loading lines: reading file: %w", err))
+	}
+	return string(bts)
+}

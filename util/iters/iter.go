@@ -19,3 +19,11 @@ func Sum(ints iter.Seq[int]) int {
 	}
 	return s
 }
+
+func Product(ints iter.Seq[int]) int {
+	s := 1
+	for i := range ints {
+		s *= i
+	}
+	return s
+}

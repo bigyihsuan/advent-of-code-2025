@@ -3,6 +3,7 @@ package strpipe
 import (
 	"aoc2025/util/iters"
 	"iter"
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -31,6 +32,10 @@ func (sp StrPipe) Runes() []rune {
 
 func (sp StrPipe) Trim() StrPipe {
 	return StrPipe(strings.TrimSpace(string(sp)))
+}
+
+func (sp StrPipe) Replace(regex regexp.Regexp, replacement string) StrPipe {
+	return StrPipe(regex.ReplaceAllString(string(sp), replacement))
 }
 
 // collections
