@@ -13,23 +13,66 @@ import (
 )
 
 func Day(filename string, part int) {
-	lines := strings.Lines(util.LoadFile(filename))
-	equations := Parse(lines)
-	fmt.Println(equations)
 	switch part {
 	case 1:
-		fmt.Println(Part1(equations))
+		fmt.Println(Part1(filename))
 	case 2:
-		fmt.Println(Part2(equations))
+		fmt.Println(Part2(filename))
 	}
 }
 
-func Part1(equations []Equation) int {
+func Part1(filename string) int {
+	lines := strings.Lines(util.LoadFile(filename))
+	equations := Parse(lines)
+	fmt.Println(equations)
 	return iters.Sum(iters.Map(slices.Values(equations), Equation.Eval))
 }
 
-func Part2(equations []Equation) int {
-	return -1
+func Part2(filename string) int {
+	lines := slices.Collect(strings.Lines(util.LoadFile(filename)))
+
+	n, o := lines[:len(lines)-1], lines[len(lines)-1]
+	grid := slices.Collect(
+		iters.Map(slices.Values(n),
+			func(s string) []string {
+				return slices.Collect(
+					iters.Map(slices.Values([]rune(strings.Trim(s, "\n"))), func(r rune) string { return string(r) }),
+				)
+			},
+		),
+	)
+	grid = util.RotateGridCCW(grid)
+	nums := [][]int{}
+	numRow := []int{}
+	for _, row := range grid {
+		if c := slices.Clone(row); slices.Equal(slices.Compact(c), []string{" "}) {
+			nums = append(nums, numRow)
+			numRow = []int{}
+			continue
+		}
+		n, _ := strconv.Atoi(strings.TrimSpace(strings.Join(row, "")))
+		numRow = append(numRow, n)
+	}
+	nums = append(nums, numRow)
+
+	rs := []rune(o)
+	slices.Reverse(rs)
+	rev := string(rs)
+	ops := strings.Fields(strings.TrimSpace(rev))
+
+	eqs := []Equation{}
+	for i, op := range ops {
+		var e Equation
+		switch op {
+		case string(PLUS):
+			e.Operation = PLUS
+		case string(STAR):
+			e.Operation = STAR
+		}
+		e.Nums = nums[i]
+		eqs = append(eqs, e)
+	}
+	return iters.Sum(iters.Map(slices.Values(eqs), Equation.Eval))
 }
 
 type Equation struct {
