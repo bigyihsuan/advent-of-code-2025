@@ -7,17 +7,25 @@ import (
 
 type Set[T comparable] map[T]struct{}
 
-func New[T comparable]() Set[T] {
-	return make(Set[T])
-}
-
-func (s Set[T]) Add(t T) Set[T] {
-	s[t] = struct{}{}
+func New[T comparable](ts ...T) Set[T] {
+	s := make(Set[T])
+	for _, t := range ts {
+		s.Add(t)
+	}
 	return s
 }
 
-func (s Set[T]) Remove(t T) Set[T] {
-	delete(s, t)
+func (s Set[T]) Add(ts ...T) Set[T] {
+	for _, t := range ts {
+		s[t] = struct{}{}
+	}
+	return s
+}
+
+func (s Set[T]) Remove(ts ...T) Set[T] {
+	for _, t := range ts {
+		delete(s, t)
+	}
 	return s
 }
 

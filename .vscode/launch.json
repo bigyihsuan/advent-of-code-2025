@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/main.go",
-            "args": [ "-d", "5", "-p", "2", "-f","sample/day05-3.txt"]
+            "args": [ "-d", "7", "-p", "1", "-s"]
         }
     ]
 }

@@ -24,7 +24,7 @@ func Day(filename string, part int) {
 
 var offsets = []struct{ x, y int }{{-1, -1}, {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}}
 
-func Part01(g grid.Grid) int {
+func Part01(g grid.Grid[rune]) int {
 	rolls := 0
 	for i := range g.Height() {
 		for j := range g.Width() {
@@ -47,7 +47,7 @@ func Part01(g grid.Grid) int {
 	return rolls
 }
 
-func Part02(g grid.Grid) int {
+func Part02(g grid.Grid[rune]) int {
 	rolls := 0
 	curr := g.Clone()
 	next := g.Clone()

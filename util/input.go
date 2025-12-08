@@ -55,7 +55,7 @@ func LoadLineOfElements[T any](filename string, parser Parser[T]) iter.Seq[T] {
 	}
 }
 
-func LoadStringGrid(filename string) grid.Grid {
+func LoadStringGrid(filename string) grid.Grid[rune] {
 	file, err := os.OpenFile(filename, os.O_RDONLY, os.ModeAppend)
 	if err != nil {
 		panic(fmt.Errorf("loading grid: getting file: %w", err))
