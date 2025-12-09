@@ -1,0 +1,6 @@
+day08.Edge{
+    distance: 620651,
+    a:        day08.Box{X:162, Y:817, Z:812},
+    b:        day08.Box{X:57, Y:618, Z:57},
+}
+-1

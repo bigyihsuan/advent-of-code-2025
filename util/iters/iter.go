@@ -1,6 +1,8 @@
 package iters
 
-import "iter"
+import (
+	"iter"
+)
 
 func Map[T, U any](ts iter.Seq[T], f func(T) U) iter.Seq[U] {
 	return func(yield func(U) bool) {
